@@ -1450,18 +1450,17 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 </main>
 <script>
 /* ===== 端末性能に応じた演出の出し分け（Adaptive Loading） =====
-   web.dev の Adaptive Loading パターンが挙げるシグナル（CPUコア数・端末メモリ・
-   データセーバー・回線種別）で判定し、条件に当たる端末では html.lite を付けて
+   データセーバー・回線種別のシグナルで判定し、条件に当たる端末では html.lite を付けて
    装飾の常時アニメーションを止める。全員に同じ内容・同じ操作を届け、
    余力のある端末にだけ重い演出を足す、という制作現場の考え方に沿う。
+   ※CPUコア数・端末メモリは判定に使わない。iOS Safari は実性能と関係なく
+   小さい値を返すため、iPhone 全台が軽量モードになってしまう誤作動の原因になる。
    実測フレームレートによる自動の格下げは、末尾のスクリプトで行う */
 window.__liteFX = (function(){
   try{
     var c = navigator.connection || {};
     var slow = !!(c.effectiveType && /^(slow-2g|2g|3g)$/.test(c.effectiveType));
-    var lite = !!c.saveData || slow ||
-      (typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4) ||
-      (typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 2);
+    var lite = !!c.saveData || slow;
     if(lite) document.documentElement.classList.add("lite");
     return lite;
   }catch(e){ return false; }
@@ -3518,9 +3517,11 @@ if(tbLiveBtn){
 /* ===== 省電力化（追加分）：タブが裏に回ったら止める／実測フレームレートで自動的に軽くする =====
    ・Page Visibility API：タブやアプリが裏に回っている間は、CSS側の .page-hidden で
      全アニメーションを一時停止する（タイマー類もブラウザ任せにせず、見えていない間の描画を止める）
-   ・実FPS計測：読み込み直後の数秒間の平均フレームレートが30fpsを下回る端末は、
-     その場で軽量モード（html.lite）へ落とし、生成済みの粒子レイヤーも取り除く。
-     スペック表だけでは分からない「実際に重い端末」を拾うための動的な格下げ */
+   ・実FPS計測：読み込み完了から1.5秒待ってから4秒間計測し、平均フレームレートが
+     24fpsを下回る端末は、粒子レイヤー（.sparkles / .snowfall / .party-pops）だけを取り除く。
+     読み込み直後の混雑で誤判定しないよう開始を遅らせ、格下げは粒子のみに絞ることで
+     アニメーション全体は止めない。スペック表だけでは分からない「実際に重い端末」を
+     拾うための動的な格下げ */
 (function(){
   document.addEventListener("visibilitychange", function(){
     document.documentElement.classList.toggle("page-hidden", document.hidden);
@@ -3536,11 +3537,10 @@ if(tbLiveBtn){
     if(start === null){ start = ts; frames = 0; }
     frames++;
     var elapsed = ts - start;
-    if(elapsed >= 3500){
+    if(elapsed >= 4000){
       done = true;
       var fps = frames / (elapsed / 1000);
-      if(fps < 30){
-        document.documentElement.classList.add("lite");
+      if(fps < 24){
         document.querySelectorAll(".sparkles, .snowfall, .party-pops").forEach(function(el){
           if(el.parentNode) el.parentNode.removeChild(el);
         });
@@ -3549,8 +3549,11 @@ if(tbLiveBtn){
     }
     requestAnimationFrame(loop);
   }
-  if(document.readyState === "complete") requestAnimationFrame(loop);
-  else window.addEventListener("load", function(){ requestAnimationFrame(loop); });
+  function begin(){
+    setTimeout(function(){ requestAnimationFrame(loop); }, 1500);
+  }
+  if(document.readyState === "complete") begin();
+  else window.addEventListener("load", begin);
 })();
 </script>
 <script>
