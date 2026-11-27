@@ -94,6 +94,41 @@ button,[role="button"]{min-height:44px}
 .ticker .track{display:flex;width:max-content;animation:tick var(--tick-dur,30s) linear infinite}
 .ticker span{font-family:"Cinzel",serif;font-weight:700;letter-spacing:.3em;font-size:.78rem;color:var(--gold);white-space:nowrap;padding-right:.3em}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* 最新結果・今夜の組の帯（ヒーロー直下）：中身は既存データ（各組のステータスと勝ち上がり結果）からJSが自動生成する */
+.news-band{margin-top:16px;background:#121215;border:1px solid var(--line2);border-radius:8px;box-shadow:var(--shadow);padding:13px 16px 11px;position:relative;overflow:hidden}
+.news-band:empty{display:none}
+.news-band::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold-deep),#ffedb3,#e8c96a,#ffedb3,var(--gold-deep))}
+.nb-row{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed #2b2c31}
+.nb-row:first-child{padding-top:2px}
+.nb-row:last-child{border-bottom:none;padding-bottom:2px}
+.nb-tag{flex:none;font-size:.72rem;font-weight:900;letter-spacing:.06em;border-radius:4px;padding:3px 9px;line-height:1.5;margin-top:3px;white-space:nowrap}
+.nb-tag.result{background:var(--gold);color:#14161a}
+.nb-tag.next,.nb-tag.start{background:transparent;color:var(--gold-hi);border:1.5px solid var(--gold)}
+.nb-tag.live{background:#b3122a;color:#fff;border:1px solid #d94a5e}
+.nb-main{flex:1;min-width:0;font-size:.92rem;line-height:1.75;color:var(--ink)}
+.nb-main .nb-head{font-weight:900;color:#fdf6dd}
+.nb-main .nb-songs{font-size:.88rem;font-weight:700}
+.nb-main .nb-win{font-weight:900;font-size:1rem}
+.nb-main .nb-grp{color:var(--ink2);font-size:.82rem;font-weight:700}
+a.nb-row{text-decoration:none;cursor:pointer;border-radius:6px;-webkit-tap-highlight-color:transparent}
+a.nb-row:hover{background:rgba(179,18,42,.10)}
+a.nb-row:focus-visible{outline:2px solid var(--gold-hi);outline-offset:2px}
+a.nb-row .nb-go{flex:none;color:#ff8b98;font-weight:900;font-size:.78rem;margin-top:5px;white-space:nowrap}
+/* 最新結果はニュースの速報見出し風に、帯の中でひときわ目立たせる */
+.nb-row.headline{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.45);border-radius:6px;padding:11px 12px;margin:2px 0 5px;box-shadow:0 0 18px rgba(212,175,55,.12)}
+.nb-row.headline .nb-tag{margin-top:5px}
+.nb-row.headline .nb-main{font-family:"Shippori Mincho","Hiragino Mincho ProN",serif;font-size:1.02rem;line-height:1.7}
+.nb-row.headline .nb-win{font-size:1.18rem;color:var(--gold-hi);text-shadow:0 0 12px rgba(212,175,55,.45)}
+.nb-row.headline .nb-pct{font-family:"Cinzel",serif;font-weight:700;color:var(--gold-hi)}
+.nb-row.headline .nb-sub{font-family:"Noto Sans JP",sans-serif;font-size:.76rem;font-weight:700;color:var(--ink2);white-space:nowrap}
+@media (max-width:480px){ .nb-row.headline .nb-main{font-size:.95rem} .nb-row.headline .nb-win{font-size:1.08rem} }
+@media (max-width:480px){ .news-band{padding:12px 12px 10px} .nb-main{font-size:.88rem} a.nb-row .nb-go{display:none} }
+/* Xシェアボタン（フッター付近） */
+.share-x{margin-top:56px;text-align:center}
+.share-x-btn{display:inline-flex;align-items:center;gap:10px;background:#000;border:1.5px solid var(--gold);color:#fdf6dd;font-weight:900;font-size:.95rem;letter-spacing:.05em;text-decoration:none;border-radius:999px;padding:12px 30px;min-height:48px;box-shadow:0 6px 20px rgba(212,175,55,.18);transition:background .25s ease;-webkit-tap-highlight-color:transparent}
+.share-x-btn:hover{background:rgba(212,175,55,.14)}
+.share-x-btn:focus-visible{outline:2px solid var(--gold-hi);outline-offset:2px}
+.share-x-btn svg{flex:none;display:block}
 /* sections */
 section{margin-top:64px}
 .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
@@ -750,19 +785,6 @@ footer .fin-line{text-shadow:0 0 10px rgba(212,175,55,.45),0 0 18px rgba(232,201
 /* 感想の案内：Xアクション案内の中に置く控えめな囲み */
 .impression-note{margin:16px 0 0;background:rgba(212,175,55,.08);border:1px solid var(--gold-deep);border-radius:8px;padding:13px 15px;font-size:.86rem;color:var(--ink);line-height:1.85}
 .impression-note b{color:#fdf6dd}
-/* ホーム画面に追加：参加方法セクション内の案内カード（タップで手順が開く） */
-.homescreen-card{margin-top:18px}
-.hs-intro{margin:0 0 16px;font-size:.92rem;color:var(--ink);line-height:1.95}
-.hs-intro b{color:var(--gold-hi)}
-.hs-groups{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.hs-group{background:rgba(0,0,0,.32);border:1px solid var(--line);border-radius:8px;padding:15px 16px 13px}
-.hs-group h4{margin:0 0 9px;font-family:"Noto Sans JP",sans-serif;font-size:.95rem;font-weight:900;color:#fdf6dd;line-height:1.6}
-.hs-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:hs}
-.hs-steps li{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;color:var(--ink);line-height:1.8}
-.hs-steps li::before{counter-increment:hs;content:counter(hs);flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold-hi);display:grid;place-items:center;font-family:"Cinzel",serif;font-weight:700;font-size:.74rem;margin-top:3px}
-.hs-note{margin:14px 0 0;font-size:.84rem;color:var(--ink2);line-height:1.85}
-@media (max-width:640px){ .hs-groups{grid-template-columns:1fr} }
-
 /* ===== トーナメント表：拡大ボタン＋拡大モーダル（操作はボタンと箱のタップのみ） ===== */
 .bk-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .bk-expand-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:900;font-size:.92rem;letter-spacing:.06em;color:#14161a;background:#d4af37;border:1px solid var(--gold-hi);border-radius:999px;padding:10px 22px;min-height:44px;cursor:pointer;box-shadow:0 0 15px rgba(212,175,55,.35);-webkit-tap-highlight-color:transparent}
@@ -801,7 +823,7 @@ footer .fin-line{text-shadow:0 0 10px rgba(212,175,55,.45),0 0 18px rgba(232,201
 .tree-box .bx-t .sched-part{display:block;white-space:nowrap}
 .tree-box .bx-s{font-size:.72rem;line-height:1.6;color:var(--ink);overflow-wrap:break-word}
 .tree-box .bx-s .sep{color:var(--ink2)}
-.tree-box .bx-s .ent{display:block}
+.tree-box .bx-s .ent{display:inline}
 .tree-box .bx-w{margin-top:5px;border-top:1px dashed var(--gold-deep);padding-top:5px;font-size:.78rem;font-weight:900;color:var(--wacc,#ffedb3)}
 .tree-box.has-winner{border-color:var(--wacc,#d4af37);background:var(--wbg,#17171c)}
 .tree-box.is-final{border:2px solid var(--gold-hi);background:#17171c;box-shadow:0 0 22px rgba(212,175,55,.35);padding:10px 12px}
@@ -1182,7 +1204,7 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 <h1><span class="nb">イコノイジョイ</span><br /><span class="nb">楽曲総選挙2026</span></h1>
 <p class="gp"><span class="nb">THE 1ST IKONOIJOY</span> <span class="nb">SONG ELECTION 2026</span></p>
 <div class="rule" aria-hidden="true"></div>
-<p class="drama"><span class="nb">参加したみんなに最も選ばれるのは、</span><span class="nb">どの曲か。</span><small><span class="nb">2026 MOST LOVED SONG</span></small></p>
+<p class="drama"><span class="nb">あなたの一票で選ばれるのは、</span><span class="nb">どの曲か。</span><small><span class="nb">2026 MOST LOVED SONG</span></small></p>
 <p class="unofficial" role="note" style="max-width:680px;margin:18px auto 0;padding:12px 16px;border:1.5px solid var(--gold);border-radius:6px;background:rgba(0,0,0,.5);color:var(--ink);font-size:.88rem;font-weight:700;text-align:left">※本企画は、ファンによる<strong style="color:var(--gold-hi)">非公式の企画</strong>です。各グループおよび所属事務所・レーベルとは関係ありません。</p>
 <div><span class="countdown" id="countdown">投票開始まで あと <b>―</b> 日</span></div>
 <div class="stats">
@@ -1194,6 +1216,7 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 <p class="note" style="margin:12px 0 0">コラボ曲2曲（「次に会えた時 何を話そうかな」「トリプルデート」）を含みます</p>
 <div class="ribbon-strip" aria-hidden="true"><i></i><i></i><i></i></div>
 </div>
+<div class="news-band" id="news-band" aria-label="最新の結果と今夜の組"></div>
 <div class="ticker" aria-hidden="true"><div class="track" id="ticker-track"><span>イコノイジョイ楽曲総選挙2026（ファン企画）　／　12月1日（火）投票開始　／　180 SONGS　／　全180曲の公式動画を掲載　</span><span>イコノイジョイ楽曲総選挙2026（ファン企画）　／　12月1日（火）投票開始　／　180 SONGS　／　全180曲の公式動画を掲載　</span></div></div>
 
 <div class="org-wrap">
@@ -1201,13 +1224,12 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 <details class="card notebox org-card" data-fold="organizer">
 <summary>主催者からのメッセージ</summary>
 <div class="peek">
-<p class="org-comment">このページを見つけて、ここまで読んでくださっている方へ。最初に、見つけてくださって、ありがとうございます。これは、一人のファンが開く総選挙です。＝LOVE、≠ME、≒JOYの3グループ、全180曲を対象に、Xのアンケートで投票し合い、勝ち上がりを決めていきます。期間は12月1日から29日まで。その日の組の公式動画をこのページで観てから、Xのアンケートで投票できます。</p>
-<p class="org-comment">一オタクとして、知りたいことがあります。それは、3グループの全曲が一斉に並んだとき、本当はどの曲が一番選ばれるのか、ということです。私自身、イコノイジョイを追い続けてきて、ずっと気になっていました。同じことを気になっている人も、きっと多いと思います。普段、表題曲を中心に聴いている方が、カップリング曲やアルバム曲、ライブ映像までしっかりと観たとき、どの曲が選ばれるのか。投票の結果に、曲の優劣はありません。それでも、参加したみんなに一番選ばれるのはどの曲なのか。それが知りたいのです。全曲の公式映像が一カ所に揃う機会は、そう多くありません。この年末、その全曲をみんなで見渡せる場所を作りたくて、企画を始めました。</p>
-<p class="org-comment">好きな曲は、誰にでもたくさんあります。同じ組に好きな曲同士が入れば、選ぶのは簡単ではありません。「決勝に残る曲」と聞いて、頭に浮かぶ曲がきっとあると思います。でも、その曲が途中で脱落して、決勝に残らないかもしれません。逆に、あなたが推している曲が勝ち上がって、決勝まで行くかもしれません。もしかしたら、決勝が≠MEと≒JOYの曲だけになるような、誰も予想していなかった結末が待っているかもしれません。だからこそ、知っている曲も、普段はなかなか検索してまで観ない曲も、この機会に公式の映像で改めて観てもらえたらと思っています。そうして過ごす12月の夜が、ちょっとした楽しみになれば嬉しいです。</p>
-<p class="org-comment">そして、この企画にはもう一つ、大事な仕組みがあります。それは、このページに並ぶ動画が、すべて公式YouTubeに投稿された公式動画だ、ということです。ここで再生すれば、公式の再生数にそのままカウントされます。企画を知る人が増え、このページで動画を観る人が増えれば、その分、全曲の公式動画の再生数を押し上げられます。1グループの単推しの方には他のグループの曲との出会いが、新規の方には知らなかった映像との出会いがあります。誰も損をせず、広まれば広まるほど出会いが増えていく。そういう企画にしていきたいと思います。</p>
-<p class="org-comment">何が起きても、これはあくまで一人のファンが開く企画です。最後に残る4曲にだけ順位が付きますが、それで曲の価値が決まるわけではありません。好きな曲は違っても、結果を待つ時間のドキドキは、誰にとっても同じです。そのドキドキを一緒に味わいながら、気軽に、お祭りだと思って楽しんでもらえたら嬉しいです。</p>
-<p class="org-comment">2026年も、残すところあと12月だけです。一人でも多くの方と、一曲でも多くの出会いが生まれることを願って、私はこの1カ月を、最後までやり切ります。投稿はすべて手動で、私自身が出し続けます。最終結果が出るのは12月29日。この1年への感謝を込めて、公式動画の再生数に貢献し、その先にある年末の大舞台へと繋げていきたいと思っています。そして、決勝に残る4曲は、何になるのか。</p>
-<p class="org-comment">参加したみんなに最も選ばれるのは、どの曲か。その答えを、ぜひ一緒に見届けてください！</p>
+<p class="org-comment">このページに辿り着いてくださった方へ。まずは見つけてくださってありがとうございます。</p>
+<p class="org-comment">私にはずっと気になっていたことがあります。イコノイジョイを応援し続ける中で、もしもファン投票で最後の1曲まで絞っていく企画があったら、一番多くの人に選ばれるのはどの曲なんだろう。その答えを見てみたくて、個人的にこの企画を立ち上げました。投票はXのアンケートで行い、ファンのみなさんが好きな曲に票を投じて勝ち抜き戦で決勝の4曲を決めていきます。</p>
+<p class="org-comment">今年は3グループの人気が一気に高まり、たくさんの方に知られるようになった一年です。長く応援してきた方も最近好きになった方も、全員があらためて一からすべての曲に向き合える機会を作りたいと思いました。今は好きな情報を自分で選んで受け取れる時代です。だからこそこの企画ではいつもの再生リストの外にある曲まで含めて、たくさんの楽曲に触れてほしい。そして触れた先に生まれた気持ちを、好きな曲を「選ぶ」というアクションで表してほしい。一人一人の選択が目に見える形で積み重なり、企画が進んでいく。その感覚を私も一緒に楽しみたいのです。</p>
+<p class="org-comment">イコノイジョイには素晴らしい曲がたくさん揃っています。同じ組に好きな曲が複数入れば、どれを選ぶか迷う時間も総選挙ならではの醍醐味です。一方で「この曲は勝ち残りそう」と思い浮かぶ曲もあるはずです。自分の一番とみんなの一番は重なるのか。そこがこの企画の面白さだと思っています。よく聴く曲も少し久しぶりになっていた曲も、この機会に公式の映像であらためて観てから一票を投じる。その時間ごとこの総選挙の思い出にしてほしいと願っています。</p>
+<p class="org-comment">順位が付くのは決勝に残った4曲だけで、その順位は参加したみんなで出した今回だけの答えです。好きな曲は人それぞれでも、どの曲が勝ち残るのかを待つワクワクはみんな同じです。そのワクワクを一緒に味わいながら、お祭りのような気持ちで気軽に楽しんでもらえたら幸いです。</p>
+<p class="org-comment">2026年も残すところあと1カ月となりました。一人でも多くの方に一曲でも多くの出会いが生まれますように。投票しながら公式動画をたくさん観て、みんなで盛り上がりながら年末を迎えられたら嬉しいです。その思いを胸に私もこの1カ月を最後までやり切ります。決勝に残る4曲は何になるのか。その答えをぜひ一緒に見届けてください！</p>
 <p class="org-name">主催：ともがみ（<a href="https://x.com/EqualSaito" target="_blank" rel="noopener">@EqualSaito</a>）</p>
 </div>
 <div class="detail-close-wrap"><button type="button" class="detail-close-btn" aria-label="主催者より を閉じる">閉じる</button></div>
@@ -1216,7 +1238,7 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 
 <section aria-labelledby="h-enjoy" class="stack">
 <div class="sec-head"><span class="no">1</span><div><h2 id="h-enjoy">企画概要</h2><p class="sec-guide"><span class="nb">3グループの全曲の中から、</span><span class="nb">参加したみんなの投票で1位を決めます</span></p></div></div>
-<p class="note" style="margin:0;max-width:760px">全曲の公式動画を、このページにまとめました。知っている曲も、見るきっかけがなかなかない曲も、まずは動画を観てから投票できます。懐かしい曲との再会も、初めての曲との出会いも、この一か月に詰まっています。</p>
+<p class="note" style="margin:0;max-width:760px">全曲の公式動画をこのページにまとめました。まずは動画を観て、Xで好きな1曲に投票できます。</p>
 <details class="card notebox" data-fold="flow">
 <summary>総選挙の流れ</summary>
 <div class="peek">
@@ -1224,7 +1246,7 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 <li class="is-live"><span class="f-date">12/1–21</span><span class="f-txt"><b class="f-name">予選</b><span class="f-count"><b>180</b>曲・46組</span><span class="f-bar" aria-hidden="true"><i style="width:100%"></i></span><span class="f-sub">1日2組（12/4・12/9・12/14・12/19は3組）</span></span></li>
 <li><span class="f-date">12/22–25</span><span class="f-txt"><b class="f-name">第2ラウンド</b><span class="f-count"><b>46</b>曲・12組</span><span class="f-bar" aria-hidden="true"><i style="width:26%"></i></span></span></li>
 <li><span class="f-date">12/26–27</span><span class="f-txt"><b class="f-name">準決勝</b><span class="f-count"><b>12</b>曲・4組</span><span class="f-bar" aria-hidden="true"><i style="width:7%"></i></span></span></li>
-<li><span class="f-date">12/28</span><span class="f-txt"><b class="f-name">決勝</b><span class="f-count"><b>4</b>曲</span><span class="f-bar" aria-hidden="true"><i style="width:2%"></i></span><span class="f-sub">準決勝の勝者4曲がそのまま対決・22時頃に投稿</span></span></li>
+<li><span class="f-date">12/28</span><span class="f-txt"><b class="f-name">決勝</b><span class="f-count"><b>4</b>曲</span><span class="f-bar" aria-hidden="true"><i style="width:2%"></i></span><span class="f-sub">準決勝の勝者がそのまま対決し、22時頃に投稿</span></span></li>
 <li class="is-final"><span class="f-date">12/29</span><span class="f-txt"><b class="f-name">結果発表</b><span class="f-sub">1位から4位までを発表</span></span></li>
 </ol>
 </div>
@@ -1235,37 +1257,48 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 <div class="peek">
 <ul class="rules">
 <li><span class="n">1</span><p>各組の曲の中から、<b>最も多くの票を集めた1曲</b>が勝ち上がります。投票ポストは主催者 ともがみ（<a href="https://x.com/EqualSaito" target="_blank" rel="noopener">@EqualSaito</a>）から投稿されます。</p></li>
-<li><span class="n">2</span><p>投票期間は、各ポストの投稿から<b>24時間</b>です。投稿・受付終了の時刻は各組のカードに記載していますが、表示は目安です。投稿は手動で行うため、時刻が前後する場合があります。</p></li>
-<li><span class="n">3</span><p>投票ポストは<b>全63件</b>（予選46組・第2ラウンド12組・準決勝4組・決勝1組）で、<b>12月1日から28日</b>にかけて投稿します。最終結果は、決勝の受付終了後（12月29日22時頃）に本ページとXで発表します。</p></li>
+<li><span class="n">2</span><p>投票期間は、各ポストの投稿から<b>24時間</b>です。投稿・受付終了の時刻は各組に記載していますが、表示は目安です。投稿は手動で行うため、時刻が前後する場合があります。</p></li>
+<li><span class="n">3</span><p>投票ポストは<b>全63件</b>（予選46組・第2ラウンド12組・準決勝4組・決勝1組）で、<b>12月1日から28日</b>にかけて投稿します。最終結果は、決勝の受付終了後（12月29日22時頃）に本ページとXで発表します（再投票の状況により前後する場合があります）。</p></li>
 <li><span class="n">4</span><p>全曲を「＝LOVE → ≠ME → ≒JOY → コラボ」の順に繰り返し並べ、各グループ内は配信開始日順としています。同じグループの曲は、1組に最大2曲までです。</p></li>
-<li><span class="n">5</span><p>予選の単位は「組」です。第1組から第46組の勝者、計46曲が第2ラウンドへ進みます。</p></li>
-<li><span class="n">6</span><p>第2ラウンド（全12組）の勝者は準決勝（全4組）へ進みます。準決勝を勝ち上がった4曲が、そのまま決勝で対決します。決勝では得票順で1位から4位までを決めます。順位はベスト4までとし、5位以下は付けません。</p></li>
-<li><span class="n">7</span><p>同点の組は、日を改めて同点の曲だけで再投票を行い、勝ち上がりを決めます。再投票を行う場合、その後の日程がずれることがあります。ただし決勝は例外で、決勝で同点の場合は同率のまま確定し、再投票は行いません（1位が同点の場合は同率1位です）。</p></li>
-<li><span class="n">8</span><p>途中経過は本ページに掲載しません。各組の結果は、受付終了後に掲載します。</p></li>
+<li><span class="n">5</span><p>対戦の単位は、予選から決勝まで通して「組」です。予選（第1組から第46組）の勝者46曲が第2ラウンド（全12組）へ進み、その勝者が準決勝（全4組）へ進みます。準決勝を勝ち上がった4曲がそのまま決勝で対決し、得票順で1位から4位までを決めます。順位はベスト4までとし、5位以下は付けません。</p></li>
+<li><span class="n">6</span><p>同点の組は、日を改めて同点の曲だけで再投票を行い、勝ち上がりを決めます。再投票を行う場合、その後の日程がずれることがあります。ただし決勝は例外で、決勝で同点の場合は同率のまま確定し、再投票は行いません（1位が同点の場合は同率1位です）。</p></li>
+<li><span class="n">7</span><p>途中経過は本ページに掲載しません。各組の結果は、受付終了後に掲載します。</p></li>
 </ul>
 <p style="margin:20px 0 8px;font-weight:900;color:#fdf6dd">対象となる曲</p>
-<p class="note" style="margin:0 0 4px">対象は、＝LOVE・≠ME・≒JOYの楽曲のうち、各グループの公式YouTubeチャンネルに映像が公開され、メンバーが歌唱している全180曲です。ユニット曲・ソロ曲、配信限定曲も、公式YouTubeに映像があれば対象です。対象曲は確定済みで、期間中に追加しません。</p>
+<p class="note" style="margin:0 0 4px">対象は、＝LOVE・≠ME・≒JOYの楽曲のうち、各グループの公式YouTubeチャンネルに映像が公開され、メンバーが歌唱している全180曲です。ユニット曲・ソロ曲・配信限定曲も、公式YouTubeチャンネルに映像があれば対象です。対象曲は確定済みで、期間中に追加しません。別バージョン（THE FIRST TAKE版・Korean ver.・TV Size版など）は別の曲として数えず、原曲の1曲に含めます。</p>
 <p style="margin:20px 0 8px;font-weight:900;color:#fdf6dd">対象外となるもの</p>
 <ul class="note" style="margin:0;padding-left:1.2em">
-<li>公式アカウント以外から投稿された曲（ドラマの劇中ユニット名義など）は対象外です。</li>
-<li>メンバーが歌唱していない曲（Overtureなど）は対象外です。</li>
-<li>外部アーティストとのコラボ曲は対象外です（グループ同士の合同曲は対象です）。</li>
-<li>「君だけの花道」は、公式の映像がなく音源のみのため対象外です。本企画は、映像を観て投票する形式です。</li>
-<li>別バージョン（THE FIRST TAKE版・Korean ver.・TV Size版など）は別の曲として数えず、原曲の1曲に含めます。</li>
+<li>公式アカウント以外から投稿された曲（ドラマの劇中ユニット名義など）</li>
+<li>メンバーが歌唱していない曲（Overtureなど）</li>
+<li>外部アーティストとの共演曲（グループ同士のコラボ曲は対象です）</li>
+<li>「君だけの花道」：公式の映像がなく音源のみのため（本企画は、映像を観て投票する形式です）</li>
 </ul>
 <div class="detail-close-wrap"><button type="button" class="detail-close-btn" aria-label="選考方法 を閉じる">閉じる</button></div>
 </div>
 </details>
 </section>
 
+<section aria-labelledby="h-notes">
+<div class="sec-head"><span class="no">2</span><div><h2 id="h-notes">公式動画リンクについて</h2><p><span class="nb">掲載リンクの</span><span class="nb">選び方</span></p></div></div>
+<details class="card notebox" open>
+<summary>掲載の基準</summary>
+<div class="peek">
+<ul class="note" style="margin:0;padding-left:1.2em">
+<li>掲載は、各グループの公式YouTubeチャンネルの動画のみ、1曲につき<b>最大2本</b>です。優先順位は <b>MV ＞ ライブ映像 ＞ ダンス／パフォーマンス ＞ 振り付け映像</b> の順です。サムネイルをタップすると、ポップアップで再生できます。</li>
+</ul>
+<div class="detail-close-wrap"><button type="button" class="detail-close-btn" aria-label="公式動画リンク を閉じる">閉じる</button></div>
+</div>
+</details>
+</section>
+
 <section aria-labelledby="h-cheer">
-<div class="sec-head"><span class="no">2</span><div><h2 id="h-cheer">参加方法</h2></div></div>
+<div class="sec-head"><span class="no">3</span><div><h2 id="h-cheer">参加方法</h2></div></div>
 <div class="card steps-card">
 <p class="night-hook"><span class="nb">登録は要りません。</span><span class="nb">どの組からでも参加できます。</span></p>
 <p class="night-lead">感想を書くかどうかは自由です。投票だけでも構いません。</p>
 <ol class="night-flow">
 <li>
-<div class="nf-head"><span class="nf-no">1</span><span class="nf-time">開始</span><b>その日の組のアンケートが投稿されます</b></div>
+<div class="nf-head"><span class="nf-no">1</span><span class="nf-time">開始</span><b>その日の組のアンケートが投稿される</b></div>
 <p>主催者 ともがみ（<a href="https://x.com/EqualSaito" target="_blank" rel="noopener">@EqualSaito</a>）のポストで、その組の投票が始まります。</p>
 </li>
 <li>
@@ -1273,55 +1306,30 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 <p>下記の組一覧でサムネイルをタップすると、公式動画がポップアップで再生されます。</p>
 </li>
 <li>
-<div class="nf-head"><span class="nf-no">3</span><span class="nf-time">投票</span><b>Xで、好きな曲に1票</b></div>
-<p>組カードの「Xで投票する」ボタンからアンケートポストを開き、1曲を選んでタップします。受付は投稿から24時間です。</p>
+<div class="nf-head"><span class="nf-no">3</span><span class="nf-time">投票</span><b>Xで好きな曲に1票</b></div>
+<p>各組の「Xで投票する」ボタンからアンケートポストを開き、1曲を選んでタップします。受付は投稿から24時間です。</p>
 </li>
 <li>
-<div class="nf-head"><span class="nf-no">4</span><span class="nf-time">感想</span><b>結果への感想を伝える（任意）</b></div>
-<p>勝ち上がりが決まったら、投票ポストへのリプライや引用ポストで感想をどうぞ。</p>
-<p>気になる組み合わせは、スクリーンショットを撮ってXでシェアするのも歓迎です。</p>
+<div class="nf-head"><span class="nf-no">4</span><span class="nf-time">感想</span><b>思いを伝える（任意）</b></div>
+<p>勝ち上がりが決まる前でもいつでもどうぞ。投票ポストへのリプライや引用ポストで、好きな曲への思いを伝えてもらえたら嬉しいです。</p>
 <div class="xacts">
 <ul class="xa-featured">
-<li><span class="xa-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4c-1.4 0-2.8-.3-4-.9L3 20l1.1-5.2A8.4 8.4 0 1 1 21 11.5Z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></span><b>リプライ</b><p>「私はこの曲！」と曲名を書くだけでも大歓迎です</p></li>
-<li><span class="xa-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.2 7.6c-3.1.5-5.2 2.9-5.2 6.4v3.4h5.4v-5.4H7.7c.1-1.9 1-3 2.5-3.4V7.6Zm9.8 0c-3.1.5-5.2 2.9-5.2 6.4v3.4h5.4v-5.4h-2.7c.1-1.9 1-3 2.5-3.4V7.6Z"/></svg></span><b>引用ポストで感想を語ろう</b><p>好きな理由や思い出を添えて投稿できます</p></li>
+<li><span class="xa-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4c-1.4 0-2.8-.3-4-.9L3 20l1.1-5.2A8.4 8.4 0 1 1 21 11.5Z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg></span><b>リプライ</b><p>「私はこの曲！」と曲名を書くだけでも大丈夫です</p></li>
+<li><span class="xa-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.2 7.6c-3.1.5-5.2 2.9-5.2 6.4v3.4h5.4v-5.4H7.7c.1-1.9 1-3 2.5-3.4V7.6Zm9.8 0c-3.1.5-5.2 2.9-5.2 6.4v3.4h5.4v-5.4h-2.7c.1-1.9 1-3 2.5-3.4V7.6Z"/></svg></span><b>引用ポスト</b><p>好きな理由や思い出を添えて投稿できます</p></li>
 </ul>
 </div>
+<p>気になる組み合わせは、スクリーンショットを撮ってXでシェアすることもできます。</p>
 </li>
 <li>
 <div class="nf-head"><span class="nf-no">5</span><span class="nf-time">翌日以降</span><b>結果と勝ち上がりを確認</b></div>
-<p>受付終了後、結果を組カードに掲載します。勝ち上がった曲は、トーナメント表にも反映されます。</p>
+<p>受付終了後、各組に結果を掲載します。勝ち上がった曲は、トーナメント表にも反映されます。</p>
 </li>
 </ol>
 </div>
-<details class="card notebox homescreen-card" open data-fold="homescreen">
-<summary>ホーム画面に追加</summary>
-<div class="peek">
-<p class="hs-intro">このページをスマートフォンの<b>ホーム画面に追加</b>すると、次回からアイコンをタップするだけで開けます。</p>
-<div class="hs-groups">
-<div class="hs-group">
-<h4>iPhone（Safari）で追加する場合</h4>
-<ol class="hs-steps">
-<li>Safariでこのページを開きます。</li>
-<li>画面下部の共有ボタンをタップします。</li>
-<li>「ホーム画面に追加」をタップします。</li>
-</ol>
-</div>
-<div class="hs-group">
-<h4>Android（Chrome）で追加する場合</h4>
-<ol class="hs-steps">
-<li>Chromeでこのページを開きます。</li>
-<li>画面右上のメニューを開きます。</li>
-<li>「ホーム画面に追加」をタップします。</li>
-</ol>
-</div>
-</div>
-<div class="detail-close-wrap"><button type="button" class="detail-close-btn" aria-label="ホーム画面に追加 を閉じる">閉じる</button></div>
-</div>
-</details>
 </section>
 
 <section aria-labelledby="h-bracket">
-<div class="sec-head"><span class="no b3">3</span><div><h2 id="h-bracket">トーナメント表</h2><p><span class="nb">予選から決勝までの</span><span class="nb">全63ポスト</span></p><p class="sec-guide">勝ち上がりの組み合わせはこちら</p></div></div>
+<div class="sec-head"><span class="no b3">4</span><div><h2 id="h-bracket">トーナメント表</h2><p><span class="nb">予選から決勝までの</span><span class="nb">全63ポスト</span></p><p class="sec-guide">勝ち上がりの組み合わせはこちら</p></div></div>
 <details class="notebox sec-fold bk-fold" data-fold="bracket">
 <summary>全63ポストの組み合わせ</summary>
 <div class="peek">
@@ -1363,7 +1371,7 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 </section>
 
 <section aria-labelledby="h-blocks">
-<div class="sec-head"><span class="no b5">4</span><div><h2 id="h-blocks">予選組一覧</h2><p><span class="nb">全46組・全180曲。</span></p></div></div>
+<div class="sec-head"><span class="no b5">5</span><div><h2 id="h-blocks">予選組一覧</h2><p><span class="nb">全46組・全180曲。</span></p></div></div>
 <div class="controls">
 <div class="row" role="group" aria-label="グループで絞り込み">
 <button type="button" class="chip" data-filter="all" aria-pressed="true">すべて</button>
@@ -1386,7 +1394,7 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 </section>
 
 <section aria-labelledby="h-later">
-<div class="sec-head"><span class="no">5</span><div><h2 id="h-later">先のラウンド</h2><p><span class="nb">勝ち上がりが決まり次第、</span><span class="nb">ここに対戦カードが並びます</span></p></div></div>
+<div class="sec-head"><span class="no">6</span><div><h2 id="h-later">先のラウンド</h2><p><span class="nb">勝ち上がりが決まり次第、</span><span class="nb">ここに対戦カードが並びます</span></p></div></div>
 <p class="later-lead">対戦カードが決まった組から、曲名と公式動画を掲載します。それまでは<b>「準備中」</b>と表示します。</p>
 <div class="round-group">
 <h3 class="round-head">第2ラウンド <span class="round-date">12/22（火）〜25（金）・全12組</span></h3>
@@ -1405,18 +1413,11 @@ html.lite .ticker .track{animation:tick var(--tick-dur,30s) linear infinite!impo
 </div>
 </section>
 
-<section aria-labelledby="h-notes">
-<div class="sec-head"><span class="no">6</span><div><h2 id="h-notes">公式動画リンクについて</h2><p><span class="nb">掲載リンクの</span><span class="nb">選び方</span></p></div></div>
-<details class="card notebox" open>
-<summary>掲載の基準</summary>
-<div class="peek">
-<ul class="note" style="margin:0;padding-left:1.2em">
-<li>掲載は、各グループの公式YouTubeチャンネルの動画のみ、1曲につき<b>最大2本</b>です。優先順位は <b>MV ＞ ライブ映像 ＞ ダンス／パフォーマンス ＞ 振り付け映像</b> の順です。サムネイルをタップすると、ポップアップで再生できます。</li>
-</ul>
-<div class="detail-close-wrap"><button type="button" class="detail-close-btn" aria-label="公式動画リンク を閉じる">閉じる</button></div>
+
+
+<div class="share-x">
+<a class="share-x-btn" href="https://x.com/intent/tweet?text=%E3%82%A4%E3%82%B3%E3%83%8E%E3%82%A4%E3%82%B8%E3%83%A7%E3%82%A4%E6%A5%BD%E6%9B%B2%E7%B7%8F%E9%81%B8%E6%8C%992026%EF%BC%88%E3%83%95%E3%82%A1%E3%83%B3%E4%BC%81%E7%94%BB%EF%BC%89%EF%BD%9C%E5%85%A8180%E6%9B%B2%E3%81%AE%E5%85%AC%E5%BC%8F%E5%8B%95%E7%94%BB%E3%82%92%E8%A6%B3%E3%81%A6%E3%80%81X%E3%81%AE%E3%82%A2%E3%83%B3%E3%82%B1%E3%83%BC%E3%83%88%E3%81%A7%E6%8A%95%E7%A5%A8%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%99&url=https%3A%2F%2Fmuse.ai%2Fs%2Fikonoiziyoiquan-le-qu-tonamento-xixf6yxvxlxrxmxmkxg%2F5EPiLkWtHVjW7wzGv11UU5pxWgH1e8UJlTLs-OKeAd8" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2.1h3.4l-7.4 8.5 8.7 11.3h-6.8l-5.3-6.8-6.1 6.8H2l7.9-9.1L1.6 2.1h7l4.8 6.2 5.5-6.2Zm-1.2 17.7h1.9L7.4 4H5.4l12.3 15.8Z"/></svg>Xでシェアする</a>
 </div>
-</details>
-</section>
 
 <footer>
 <p><span class="nb">第1回 イコノイジョイ楽曲総選挙2026（ファン企画）</span> <span class="nb">― 2026.12.1 START</span></p>
@@ -2500,8 +2501,8 @@ if(tbLiveBtn){
 })();
 
 /* ===== 折りたたみの初期状態と、この端末への記憶 =====
-   対象は data-fold を付けた5つ：主催者より／企画概要の「総選挙の流れ」「選考方法」／
-   参加方法の「ホーム画面に追加」／トーナメント表。
+   対象は data-fold を付けた4つ：主催者より／企画概要の「総選挙の流れ」「選考方法」／
+   トーナメント表。
    初回訪問時はすべて開いた状態で表示し、訪問者が開閉したら、その状態をこの端末
    （localStorage）に記憶して、次回以降は記憶した状態で表示する。
    下の詳細表示の初期化より前に is-open を反映させること（ヒント文言の初期表示が連動するため）。
@@ -2856,7 +2857,7 @@ if(tbLiveBtn){
     }
     return '<span class="ent">' + refLabel + '</span>';
   }
-  function joiner(list){ return list.join('<span class="sep"> ／ </span>'); }
+  function joiner(list){ return list.join('<span class="sep"> VS </span>'); }
   /* ツリーの列配置：左端→中央→右端の順に、左右対称の x 座標と幅を持つ */
   var COLX = {lr1:0, lr2:258, lqf:508, fin:744, rqf:1052, rr2:1294, rr1:1544};
   var COLW = {lr1:204, lr2:196, lqf:188, fin:260, rqf:188, rr2:196, rr1:204};
@@ -2886,24 +2887,24 @@ if(tbLiveBtn){
       + '<svg width="56" height="38" viewBox="0 0 64 42"><path d="M23.5 12 C17.5 12 16.8 19.5 23.8 20.8" fill="none" stroke="#f0d47a" stroke-width="2.6" stroke-linecap="round"/><path d="M40.5 12 C46.5 12 47.2 19.5 40.2 20.8" fill="none" stroke="#f0d47a" stroke-width="2.6" stroke-linecap="round"/><path d="M22 7.5 H42 V16 C42 22.8 37.6 27 32 27 C26.4 27 22 22.8 22 16 Z" fill="#f0d47a" stroke="#9a7b24" stroke-width="1.2" stroke-linejoin="round"/><path d="M32 11.5 C32.7 14.9 33.7 15.9 37.1 16.6 C33.7 17.3 32.7 18.3 32 21.7 C31.3 18.3 30.3 17.3 26.9 16.6 C30.3 15.9 31.3 14.9 32 11.5 Z" fill="#fffbe8"/><rect x="30" y="27" width="4" height="3.6" fill="#f0d47a" stroke="#9a7b24" stroke-width=".8"/><path d="M25.5 34.2 L26.8 30.6 H37.2 L38.5 34.2 Z" fill="#b08d2e" stroke="#9a7b24" stroke-width=".8" stroke-linejoin="round"/><rect x="23.8" y="34.2" width="16.4" height="2.4" rx="1" fill="#b08d2e" stroke="#9a7b24" stroke-width=".8"/><path d="M9 4 C9.6 7.2 10.4 8 13.6 8.6 C10.4 9.2 9.6 10 9 13.2 C8.4 10 7.6 9.2 4.4 8.6 C7.6 8 8.4 7.2 9 4 Z" fill="#f0d47a"/><path d="M55 4 C55.6 7.2 56.4 8 59.6 8.6 C56.4 9.2 55.6 10 55 13.2 C54.4 10 53.6 9.2 50.4 8.6 C53.6 8 54.4 7.2 55 4 Z" fill="#f0d47a"/></svg></div>';
     BLOCKS.forEach(function(b){
       var key = b.n <= 23 ? "lr1" : "rr1";
-      /* 曲名は「／」で続けて書かず、1曲ごとに改行して表示する（.ent は1行表示） */
+      /* 曲名は「 VS 」でつないで表示する（.ent は行内表示。区切りは joiner が付ける） */
       var songs = b.songs.map(function(x){
         return '<span class="ent"><span class="dot ' + (DOT[x.g]||"") + '"></span>' + esc(x.t) + '</span>';
       });
-      html += box("r1-" + b.n, key, "予選 第" + b.n + "組", songs.join(""), b.winner, "勝ち上がり", null, schedLine(blockTimes(b.n)));
+      html += box("r1-" + b.n, key, "予選 第" + b.n + "組", joiner(songs), b.winner, "勝ち上がり", null, schedLine(blockTimes(b.n)));
     });
     BRACKET.round2.forEach(function(r){
       var key = r.n <= 6 ? "lr2" : "rr2";
       var es = r.from.map(function(n){ return entrantLine("予選第" + n + "組の勝者", r1Title(n)); });
-      html += box("r2-" + r.n, key, "第2ラウンド 第" + r.n + "組（" + r.date + "）", es.join(""), r.winner, "勝ち上がり", null, schedLine(postCloseParts(r.postAt, r.closeAt)));
+      html += box("r2-" + r.n, key, "第2ラウンド 第" + r.n + "組（" + r.date + "）", joiner(es), r.winner, "勝ち上がり", null, schedLine(postCloseParts(r.postAt, r.closeAt)));
     });
     BRACKET.quarterfinal.forEach(function(r){
       var key = r.n <= 2 ? "lqf" : "rqf";
       var es = r.from.map(function(n){ return entrantLine("第2ラウンド第" + n + "組の勝者", BRACKET.round2[n-1].winner); });
-      html += box("qf-" + r.n, key, "準決勝 第" + r.n + "組（" + r.date + "）", es.join(""), r.winner, "勝ち上がり", null, schedLine(postCloseParts(r.postAt, r.closeAt)));
+      html += box("qf-" + r.n, key, "準決勝 第" + r.n + "組（" + r.date + "）", joiner(es), r.winner, "勝ち上がり", null, schedLine(postCloseParts(r.postAt, r.closeAt)));
     });
     var finEs = [1,2,3,4].map(function(n){ return entrantLine("準決勝第" + n + "組の勝者", BRACKET.quarterfinal[n-1].winner); });
-    html += box("fin", "fin", "決勝（12/28）", finEs.join(""), BRACKET.final.winner, "優勝", "is-final", schedLine(postCloseParts(BRACKET.final.postAt, BRACKET.final.closeAt)));
+    html += box("fin", "fin", "決勝（12/28）", joiner(finEs), BRACKET.final.winner, "優勝", "is-final", schedLine(postCloseParts(BRACKET.final.postAt, BRACKET.final.closeAt)));
     html += '</div>';
     return html;
   }
@@ -3550,6 +3551,202 @@ if(tbLiveBtn){
   }
   if(document.readyState === "complete") requestAnimationFrame(loop);
   else window.addEventListener("load", function(){ requestAnimationFrame(loop); });
+})();
+</script>
+<script>
+/* ===== ヒーロー直下の帯「最新結果・今夜の組」 =====
+表示内容は、組カード／トーナメント表と同じ既存データ（BLOCKS＝予選、BRACKET＝第2ラウンド以降）の
+各組のステータスと勝ち上がり結果から自動で決める。ステータスの判定基準は組カードの描画とそろえた：
+status「再投票中」→再投票中／status「確定」または勝者・最終％あり→終了／
+postUrl があり status「投票中」または途中経過あり→投票受付中／それ以外→開始前。
+・大会開始前（受付中も終了も無い）：「12月1日（火）21時頃スタート」と予選 第1組の曲名
+・開催中：直近に結果が確定した組の「勝ち上がり」＋投票受付中の組（タップでその組のカードへ移動）
+　＋次に投稿される開始前の組（今夜の組）の曲名
+・決勝終了後：最終結果（決勝の1位）
+帯は情報表示専用で、固定トップバーの「次の組へ」ボタンとは役割を分けている */
+(function(){
+  var band = document.getElementById("news-band");
+  if(!band || typeof BLOCKS === "undefined" || typeof BRACKET === "undefined") return;
+  function escS(s){ return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function findSong(title){
+    if(!title) return null;
+    for(var i = 0; i < BLOCKS.length; i++){
+      var ss = BLOCKS[i].songs;
+      for(var j = 0; j < ss.length; j++){ if(ss[j].t === title) return ss[j]; }
+    }
+    return null;
+  }
+  function stateOf(e){
+    if(!e) return "upcoming";
+    var hasRes = (e.winner != null && e.winner !== "") ||
+      (Array.isArray(e.results) && e.results.some(function(r){ return r && (r.pct != null || r.votes != null); }));
+    var hasInt = !hasRes && e.interim != null && Array.isArray(e.interim.results) &&
+      e.interim.results.some(function(r){ return r && (r.pct != null || r.votes != null); });
+    if(e.status === "再投票中") return "revote";
+    if(e.status === "確定" || hasRes) return "done";
+    if(!hasRes && e.postUrl && (e.status === "投票中" || hasInt)) return "voting";
+    return "upcoming";
+  }
+  /* 先のラウンドの対戦曲：entry.songs の直接指定があればそれを使い、なければ
+     勝ち上がってくる組の winner から曲データを解決する。揃わない組は null（曲名は出さない） */
+  function laterSongs(entry, titles){
+    var src = null;
+    if(Array.isArray(entry.songs) && entry.songs.length){
+      src = entry.songs.map(function(s){ return (typeof s === "string") ? findSong(s) : s; });
+    } else if(titles){
+      src = titles.map(function(t){ return findSong(t); });
+    }
+    if(!src || !src.length) return null;
+    for(var i = 0; i < src.length; i++){ if(!src[i]) return null; }
+    return src;
+  }
+  var seq = [];
+  BLOCKS.forEach(function(b){
+    seq.push({ label: "予選 第" + b.n + "組", entry: b, songs: b.songs, id: "block-" + b.n, r1: true, advance: "第2ラウンド進出" });
+  });
+  BRACKET.round2.forEach(function(r){
+    seq.push({ label: "第2ラウンド 第" + r.n + "組", entry: r, id: "block-r2-" + r.n, advance: "準決勝進出",
+      songs: laterSongs(r, r.from.map(function(n){ var b = BLOCKS[n - 1]; return b ? b.winner : null; })) });
+  });
+  BRACKET.quarterfinal.forEach(function(r){
+    seq.push({ label: "準決勝 第" + r.n + "組", entry: r, id: "block-qf-" + r.n, advance: "決勝進出",
+      songs: laterSongs(r, r.from.map(function(n){ var e = BRACKET.round2[n - 1]; return e ? e.winner : null; })) });
+  });
+  seq.push({ label: "決勝", entry: BRACKET.final, id: "block-final", final: true,
+    songs: laterSongs(BRACKET.final, [1, 2, 3, 4].map(function(n){ var e = BRACKET.quarterfinal[n - 1]; return e ? e.winner : null; })) });
+  seq.forEach(function(it){ it.state = stateOf(it.entry); });
+
+  var GC = (typeof GCLASS !== "undefined") ? GCLASS : {};
+  function songsHtml(songs){
+    if(!songs || !songs.length) return "";
+    return ' <span class="nb-songs">' + songs.map(function(x){
+      return '<span class="' + (GC[x.g] || "") + '">' + escS(x.t) + '</span>';
+    }).join('<span aria-hidden="true"> VS </span>') + '</span>';
+  }
+  function winnerHtml(it){
+    var sd = findSong(it.entry.winner);
+    return '<span class="nb-win ' + (sd ? (GC[sd.g] || "") : "") + '">' + escS(it.entry.winner) + '</span>' +
+      (sd ? ' <span class="nb-grp">（' + escS(sd.g) + '）</span>' : "");
+  }
+  /* 勝ち上がった曲の結果値：得票率（pct）と総得票数。
+     pct は結果データ（results）が対戦曲の並び順に対応しているので、勝者の位置から引く。
+     総得票数は、エントリに totalVotes があればその値を、なければ results の votes から求める
+     （各曲の票数が記録されていれば合計、全曲に同じ値が記録されていればその値自体を総得票数とみなす）。
+     獲得票数は「総得票数×得票率」で算出する。Xの得票率は整数表示のため算出値は近似になり、
+     見出しでは「約○票」と表記する */
+  function winnerStats(it){
+    var e = it.entry, pct = null, total = null;
+    if(e.winner && Array.isArray(e.results) && it.songs){
+      for(var i = 0; i < it.songs.length; i++){
+        if(it.songs[i].t === e.winner){
+          var r = e.results[i];
+          if(r && r.pct != null) pct = r.pct;
+        }
+      }
+    }
+    if(typeof e.totalVotes === "number" && e.totalVotes > 0){
+      total = e.totalVotes;
+    } else if(Array.isArray(e.results)){
+      var vs = [];
+      e.results.forEach(function(r){ if(r && typeof r.votes === "number") vs.push(r.votes); });
+      if(vs.length){
+        var same = vs.every(function(v){ return v === vs[0]; });
+        total = (same && vs.length > 1) ? vs[0] : vs.reduce(function(a, b){ return a + b; }, 0);
+      }
+    }
+    var approx = (pct != null && total != null) ? Math.round(total * pct / 100) : null;
+    return { pct: pct, total: total, approx: approx };
+  }
+  function fmtNum(n){ return n.toLocaleString("ja-JP"); }
+  /* 補足（小さく添える）：得票率と総得票数。見出し本文に出した値は重ねない */
+  function subHtml(st, pctInMain){
+    var parts = [];
+    if(st.pct != null && !pctInMain) parts.push('得票率' + st.pct + '%');
+    if(st.total != null) parts.push('総得票数' + fmtNum(st.total) + '票');
+    return parts.length ? ' <span class="nb-sub">（' + parts.join('／') + '）</span>' : "";
+  }
+  /* 最新結果の速報見出し：「第N組 『曲名』 約○票獲得で ○○進出（得票率○%／総得票数○票）」。
+     獲得票数を算出できない間は、得票率のみの見出しにし、値が無い部分は出さない */
+  function headlineHtml(it){
+    var sd = findSong(it.entry.winner);
+    var st = winnerStats(it);
+    var h = '<span class="nb-head">' + escS(it.label) + '</span> ' +
+      '<span class="nb-win ' + (sd ? (GC[sd.g] || "") : "") + '">『' + escS(it.entry.winner) + '』</span>';
+    var pctInMain = false;
+    if(st.approx != null){
+      h += ' <span class="nb-head">約</span><span class="nb-pct">' + fmtNum(st.approx) + '</span><span class="nb-head">票獲得で</span>';
+    } else if(st.pct != null){
+      h += ' <span class="nb-head">得票率</span><span class="nb-pct">' + st.pct + '%</span><span class="nb-head">で</span>';
+      pctInMain = true;
+    }
+    if(it.advance) h += ' <span class="nb-head">' + escS(it.advance) + '</span>';
+    return h + subHtml(st, pctInMain);
+  }
+
+  var rows = [];
+  var fin = seq[seq.length - 1];
+  if(fin.state === "done" && fin.entry.winner){
+    var fst = winnerStats(fin);
+    rows.push({ tag: "最終結果", cls: "result", headline: true,
+      html: '<span class="nb-head">決勝 1位</span> ' + winnerHtml(fin) +
+        (fst.approx != null ? ' <span class="nb-head">約</span><span class="nb-pct">' + fmtNum(fst.approx) + '</span><span class="nb-head">票獲得</span>' : "") +
+        subHtml(fst, false) });
+  } else {
+    var voting = seq.filter(function(it){ return it.state === "voting" || it.state === "revote"; });
+    var done = seq.filter(function(it){ return it.state === "done"; });
+    var upcoming = seq.filter(function(it){ return it.state === "upcoming"; });
+    if(!voting.length && !done.length){
+      rows.push({ tag: "開催前", cls: "start",
+        html: '<span class="nb-head">12月1日（火）21時頃スタート</span>' });
+      rows.push({ tag: "第1組", cls: "next",
+        html: '<span class="nb-head">予選 第1組</span>' + songsHtml(seq[0].songs) });
+    } else {
+      if(done.length){
+        var last = done[done.length - 1];
+        rows.push({ tag: "速報", cls: "live", headline: true, html: headlineHtml(last) });
+      }
+      voting.forEach(function(it){
+        rows.push({ tag: (it.state === "revote" ? "再投票中" : "投票受付中"), cls: "live",
+          html: '<span class="nb-head">' + escS(it.label) + '</span>' + songsHtml(it.songs),
+          href: "#" + it.id, targetId: it.id, r1: !!it.r1 });
+      });
+      if(upcoming.length){
+        var nx = upcoming[0];
+        rows.push({ tag: "今夜の組", cls: "next",
+          html: '<span class="nb-head">' + escS(nx.label) + '</span>' + songsHtml(nx.songs) });
+      }
+    }
+  }
+  band.innerHTML = rows.map(function(r){
+    var inner = '<span class="nb-tag ' + r.cls + '">' + r.tag + '</span><span class="nb-main">' + r.html + '</span>';
+    if(r.href){
+      return '<a class="nb-row" href="' + r.href + '" data-band-target="' + r.targetId + '"' +
+        (r.r1 ? ' data-band-r1="1"' : "") + '>' + inner + '<span class="nb-go">その組へ ›</span></a>';
+    }
+    return '<div class="nb-row' + (r.headline ? " headline" : "") + '">' + inner + '</div>';
+  }).join("");
+
+  /* 投票受付中の行タップ：その組のカードへ移動する。予選の組は、絞り込みや検索で
+     カードが隠れていると移動できないため、固定トップバーのボタンと同じく条件を解除してから移動する */
+  band.addEventListener("click", function(e){
+    var a = (e.target && e.target.closest) ? e.target.closest("a.nb-row") : null;
+    if(!a) return;
+    var id = a.getAttribute("data-band-target");
+    var el = id ? document.getElementById(id) : null;
+    if(!el) return;
+    e.preventDefault();
+    if(a.getAttribute("data-band-r1")){
+      try{
+        curFilter = "all"; curStatus = "all";
+        var q = document.getElementById("q"); if(q) q.value = "";
+        document.querySelectorAll("[data-filter]").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.filter === "all" ? "true" : "false"); });
+        document.querySelectorAll("button[data-status]").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.status === "all" ? "true" : "false"); });
+        if(typeof applyFilter === "function") applyFilter();
+      }catch(_){}
+    }
+    var reduced = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+  });
 })();
 </script>
 </body>
